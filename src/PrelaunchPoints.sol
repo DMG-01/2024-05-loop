@@ -130,6 +130,8 @@ contract PrelaunchPoints {
      * @param _for       address for which ETH is locked
      * @param _referral  info of the referral. This value will be processed in the backend.
      */
+
+    // @ audit a check to prevent the lockEthFor from using msg.sender
     function lockETHFor(address _for, bytes32 _referral) external payable {
         _processLock(ETH, msg.value, _for, _referral);
     }
@@ -169,6 +171,8 @@ contract PrelaunchPoints {
      * @param _receiver    Address of user who will receive the stake
      * @param _referral    Address of the referral user
      */
+
+    // audit arrange the if statement in a way that it would be gas effcient
     function _processLock(address _token, uint256 _amount, address _receiver, bytes32 _referral)
         internal
         onlyBeforeDate(loopActivation)
